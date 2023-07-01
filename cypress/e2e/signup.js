@@ -2,20 +2,24 @@
 import HomePage from "../pages/homePage"
 import LoginPage from "../pages/loginPage";
 
-const homePage = new HomePage();
-const loginPage = new LoginPage();
-const email = "malik@gmail.com"
+
 
 describe ("Inscription", () => {
-    it ("Inscription utilisateur", () => {
+    const homePage = new HomePage();
+    const loginPage = new LoginPage();
+    let randomString = Math.random().toString(36).substring(2);
+    const email = "auto_" + randomString + randomString + "@gmail.com";
+    const password = "Marole9578"
+
+    it ("Remplir le formulaire d'inscription", () => {
         homePage.visitHomePage();
         homePage.closeDialog();
         homePage.goToLoginPage();
         cy.wait(5000)
         loginPage.newCustomerLinkClick();
-        cy.get('#emailControl').type("malik@gmail.com")
-        cy.get('#passwordControl').type('Marole9578')
-        cy.get('#repeatPasswordControl').type('Marole9578')
+        cy.get('#emailControl').type(email)
+        cy.get('#passwordControl').type(password)
+        cy.get('#repeatPasswordControl').type(password)
         loginPage.selectQuestion7()
         cy.get('#securityAnswerControl').type('bouroubi')
         loginPage.registerBtn()
